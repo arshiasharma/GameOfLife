@@ -3,23 +3,26 @@
 using namespace std;
 
 class GameOfLife{
-  private:
+  protected:
     int row;
     int column;
     char **board;
     char **board2;
     float popDensity;
-    string file;
+    string temp;
 
 
   public:
     GameOfLife();
-    GameOfLife(int row, int column, float popDensity, string file);
+    GameOfLife(int row, int column, float popDensity);
+    GameOfLife(int row, int column, string temp);
     ~GameOfLife();
 
     //method for prompting the user
-    void RandGen();
-    void FileGen();
+    char** randGen();
+    char** fileGen();
+    int getRow();
+    int getColumn();
 
 
 

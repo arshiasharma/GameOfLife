@@ -1,0 +1,12 @@
+Board 0
+-	X	X	
+X	-	-	
+Board 1
+-	X	-	
+-	X	-	
+Board 2
+-	-	-	
+-	-	-	
+Board 3
+-	-	-	
+-	-	-	

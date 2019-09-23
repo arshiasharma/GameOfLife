@@ -10,14 +10,27 @@ GameOfLife::GameOfLife(){
   row = 0;
   column  = 0;
   popDensity = 0;
-  file = "";
+  temp = "";
 }
 
-GameOfLife::GameOfLife(int r, int c, float p, string f){
+GameOfLife::GameOfLife(int r, int c, float p){
   row = r;
   column  = c;
   popDensity = p;
-  file = f;
+}
+
+GameOfLife::GameOfLife(int r, int c, string t){
+  row = r;
+  column  = c;
+  temp = t;
+}
+
+int GameOfLife::getRow(){
+  return row;
+}
+
+int GameOfLife::getColumn(){
+  return column;
 }
 
 
@@ -25,7 +38,7 @@ GameOfLife::~GameOfLife(){
   delete board;
 }
 
-void GameOfLife::RandGen(){
+char** GameOfLife::randGen(){
   srand(time(0)); //to make the rand actually random
 
   board = new char *[row];
@@ -70,8 +83,35 @@ void GameOfLife::RandGen(){
       }
     }
     cout << endl;
+    return board;
   }
 
-  //void GameOfLife::FileGen(){
+  char** GameOfLife::fileGen(){
 
-//  }
+    board = new char *[row];
+  		for(int i = 0; i < row ; i++){
+  		    board[i] = new char[column];
+  		}
+
+    board2 = new char *[row];
+    	for(int i = 0; i < row ; i++){
+    		   board2[i] = new char[column];
+    	}
+
+      //make a loop thing
+      int count = 2;
+
+      cout << "Board 2" << endl;
+        for(int i = 0; i < row; i++){
+          cout << endl;
+          for(int j = 0; j < column; j++){
+              board[i][j] = char(temp[count]);
+              board2[i][j] = char(temp[count]);
+              count++;
+
+              cout << board[i][j] << "\t";
+            }
+        }
+        cout << endl;
+        return board;
+    }
