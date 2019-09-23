@@ -38,9 +38,9 @@ void MirrorMode::simulation(){
         if(board[i][j] == 'X'){
           neighborCount += 3;
         }if(board[i][j+1] == 'X'){
-          neighborCount++;
+          neighborCount += 2;
         }if(board[i+1][j] == 'X'){
-          neighborCount++;
+          neighborCount+=2;
         }if(board[i+1][j+1] == 'X'){
           neighborCount++;
         }
@@ -51,11 +51,11 @@ void MirrorMode::simulation(){
       }else if((i == 0) && (j == (column - 1))){
         if(board[i][j] == 'X'){
           neighborCount += 3;
-        }if(board[i][j+1] == 'X'){
-          neighborCount++;
-        }if(board[i+1][j] == 'X'){
-          neighborCount++;
+        }if(board[i][j-1] == 'X'){
+          neighborCount += 2;
         }if(board[i+1][j-1] == 'X'){
+          neighborCount += 2;
+        }if(board[i+1][j] == 'X'){
           neighborCount++;
         }
         getBoard(i, j, neighborCount);
@@ -66,12 +66,13 @@ void MirrorMode::simulation(){
         if(board[i][j] == 'X'){
           neighborCount += 3;
         }if(board[i][j-1] == 'X'){
-          neighborCount++;
+          neighborCount += 2;
         }if(board[i-1][j] == 'X'){
-          neighborCount++;
+          neighborCount += 2;
         }if(board[i-1][j-1] == 'X'){
           neighborCount++;
         }
+        cout << neighborCount << endl;
         getBoard(i, j, neighborCount);
         neighborCount = 0;
 
@@ -80,9 +81,9 @@ void MirrorMode::simulation(){
         if(board[i][j] == 'X'){
           neighborCount += 3;
         }if(board[i][j+1] == 'X'){
-          neighborCount++;
+          neighborCount+=2;
         }if(board[i-1][j] == 'X'){
-          neighborCount++;
+          neighborCount+=2;
         }if(board[i-1][j+1] == 'X'){
           neighborCount++;
         }

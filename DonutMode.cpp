@@ -40,15 +40,15 @@ void DonutMode::simulation(){
           neighborCount++;
         }if(board[i+1][j+1] == 'X'){
           neighborCount++;
-        }if(board[i][j-(column-1)] == 'X'){
+        }if(board[i][j+(column-1)] == 'X'){
           neighborCount++;
-        }if(board[i+1][j-(column-1)] == 'X'){
+        }if(board[i+1][j+(column-1)] == 'X'){
+          neighborCount++;
+        }if(board[i + (row-1)][j +(column - 1)] == 'X'){
           neighborCount++;
         }if(board[i + (row-1)][j] == 'X'){
           neighborCount++;
-        }if(board[i + (row-1)][j-(column-1)] == 'X'){
-          neighborCount++;
-        }if(board[i + (row-1)][j-(column-2)] == 'X'){
+        }if(board[i + (row-1)][j+1] == 'X'){
           neighborCount++;
         }
         getBoard(i, j, neighborCount);
@@ -111,7 +111,7 @@ void DonutMode::simulation(){
           neighborCount++;
         }if(board[i][j + (column - 1)] == 'X'){
           neighborCount++;
-        }if(board[i][j + (column - 2)] == 'X'){
+        }if(board[i-1][j + (column - 1)] == 'X'){
           neighborCount++;
         }
         getBoard(i, j, neighborCount);
