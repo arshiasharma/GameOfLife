@@ -72,7 +72,6 @@ void MirrorMode::simulation(){
         }if(board[i-1][j-1] == 'X'){
           neighborCount++;
         }
-        cout << neighborCount << endl;
         getBoard(i, j, neighborCount);
         neighborCount = 0;
 
