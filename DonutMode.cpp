@@ -55,11 +55,11 @@ void DonutMode::simulation(){
         neighborCount = 0;
 
       }else if((i == 0) && (j == (column - 1))){
-        if(board[i][j+1] == 'X'){
-          neighborCount++;
-        }if(board[i+1][j] == 'X'){
+        if(board[i][j-1] == 'X'){
           neighborCount++;
         }if(board[i+1][j-1] == 'X'){
+          neighborCount++;
+        }if(board[i+1][j] == 'X'){
           neighborCount++;
         }if(board[i + (row - 1)][j] == 'X'){
           neighborCount++;
@@ -90,7 +90,7 @@ void DonutMode::simulation(){
             neighborCount++;
           }if(board[i][0] == 'X'){
             neighborCount++;
-          }if(board[i-1][1] == 'X'){
+          }if(board[i-1][0] == 'X'){
             neighborCount++;
           }
           getBoard(i, j, neighborCount);
@@ -159,6 +159,7 @@ void DonutMode::simulation(){
         getBoard(i, j, neighborCount);
         neighborCount = 0;
 
+        //this is the problem
       }else if((i == 0) && (0 < j <= (column - 2))){
         if(board[i][j-1] == 'X'){
           neighborCount++;

@@ -11,6 +11,7 @@ int main (){
 
   string a;
   string b;
+  string pause;
   int config  = 0;
   bool loop = true;
   bool mainLoop = true;
@@ -83,7 +84,7 @@ int main (){
 
   while(mainLoop){
     //Lets user choose what game mode
-    cout << "Pick a board to begin to play: Classic (C), Donut (D), Mirror (M): ";
+    cout << "Pick a board to begin to play: classic (c), donut (d), mirror (m): ";
     cin >> b;
 
     //If the data should be in a file instead of the terminal
@@ -93,6 +94,10 @@ int main (){
     if(a == "y"){
       cout << "Enter output file name: ";
       cin >> fileInput;
+    }if(a == "n"){
+      cout << "Would you like automatic pauses between boards or press the key 'y'?" << endl;
+      cout << "Press 'y' for automatic pauses and 'n' for using the key: ";
+      cin >> pause;
     }
 
     int count = 0;
@@ -116,6 +121,7 @@ int main (){
                 }
                 output << "\n";
               }
+              output << endl;
               output.close();
               count++;
 
@@ -138,7 +144,7 @@ int main (){
 
                 if(check == 5){
                   cout << "Board stablizes or is empty, program ends" << endl;
-                  cout << "Press enter to quit" << endl;
+                  cout << "The output in in " << fileInput << endl;
                   break;
                 }
               }else{
@@ -148,45 +154,75 @@ int main (){
 
         //prints data to the terminal
         }else if (a == "n"){
-          while(count < 1000){
+          if(pause == "y"){
+            while(count < 1000){
 
-            //making an object of class ClassicMode
-            ClassicMode* c = new ClassicMode(row, column, board);
+              //making an object of class ClassicMode
+              ClassicMode* c = new ClassicMode(row, column, board);
 
-            count++;
+              count++;
 
-            //Entering simulation method
-            c->simulation();
+              //Entering simulation method
+              c->simulation();
 
-            //prints board to the terminal
-            board = c->printBoard();
+              //prints board to the terminal
+              board = c->printBoard();
 
-            cout << "Board number: " << count << endl;
-            cout << endl;
+              cout << "Board number: " << count << endl;
+              cout << endl;
 
 
-            for(int i = 0; i < 1000; i++){
-              for(int i = 0; i < 70000; i++){
-                slow+=i;
+              for(int i = 0; i < 1000; i++){
+                for(int i = 0; i < 70000; i++){
+                  slow+=i;
+                }
+                slow += i;
               }
-              slow += i;
+
+              if(c->isEqual()){
+                check++;
+
+                if(check == 5){
+                  cout << "Board stablizes or is empty, program ends" << endl;
+                  break;
+                }
+              }else{
+                continue;
+              }
             }
+          }else if(pause == "n"){
+            while(count < 100){
 
-            if(c->isEqual()){
-              check++;
+              ClassicMode* c = new ClassicMode(row, column, board);
 
-              if(check == 5){
-                cout << "Board stablizes or is empty, program ends" << endl;
-                cout << "Press enter to quit" << endl;
-                break;
+              count++;
+              c->simulation();
+              board = c->printBoard();
+
+              cout << "Board number: " << count << endl;
+              cout << endl;
+              cout << "Press 'y' to continue: ";
+              cin >> answer;
+
+              if(c->isEqual()){
+                check++;
+
+                if(check == 5){
+                  cout << "Board stablizes or is empty, program ends" << endl;
+                  cout << "Press 'y' to quit: ";
+                  cin >> answer;
+                  if(answer == 'y'){
+                    break;
+                  }
+              }else{
+                continue;
               }
-            }else{
-              continue;
             }
           }
         }
+      }
 
-        mainLoop = false;
+      mainLoop = false;
 
       //Donut loop
       }else if((b == "d") || (b == "donut")){
@@ -205,6 +241,7 @@ int main (){
             }
             output << "\n";
           }
+          output << endl;
           output.close();
           count++;
 
@@ -221,7 +258,7 @@ int main (){
 
               if(check == 5){
                 cout << "Board stablizes or is empty, program ends" << endl;
-                cout << "Press enter to quit" << endl;
+                cout << "The output in in " << fileInput << endl;
                 break;
               }
             }else{
@@ -230,7 +267,43 @@ int main (){
           }
 
         }else if (a == "n"){
+          if(pause == "y"){
+            while(count < 1000){
 
+              //making an object of class ClassicMode
+              DonutMode* d = new DonutMode(row, column, board);
+
+              count++;
+
+              //Entering simulation method
+              d->simulation();
+
+              //prints board to the terminal
+              board = d->printBoard();
+
+              cout << "Board number: " << count << endl;
+              cout << endl;
+
+
+              for(int i = 0; i < 1000; i++){
+                for(int i = 0; i < 70000; i++){
+                  slow+=i;
+                }
+                slow += i;
+              }
+
+              if(d->isEqual()){
+                check++;
+
+                if(check == 5){
+                  cout << "Board stablizes or is empty, program ends" << endl;
+                  break;
+                }
+              }else{
+                continue;
+              }
+            }
+        }else if(pause == "n"){
           while(count < 100){
 
             DonutMode* d = new DonutMode(row, column, board);
@@ -241,32 +314,29 @@ int main (){
 
             cout << "Board number: " << count << endl;
             cout << endl;
+            cout << "Press 'y' to continue: ";
+            cin >> answer;
 
-
-            //slowing down the prgram
-            for(int i = 0; i < 1000; i++){
-              for(int i = 0; i < 70000; i++){
-                slow+=i;
-              }
-              slow += i;
-            }
-
-            //checking to see if the boards stabalize
             if(d->isEqual()){
               check++;
 
               if(check == 5){
                 cout << "Board stablizes or is empty, program ends" << endl;
-                cout << "Press enter to quit" << endl;
-                break;
-              }
-            }else{
-              continue;
+                cout << "Press 'y' to quit: ";
+                cin >> answer;
+                if(answer == 'y'){
+                  break;
+                }
+              }else{
+                continue;
             }
           }
         }
+      }
+    }
 
-        mainLoop = false;
+    mainLoop = false;
+
 
       }else if((b == "m") || (b == "mirror")){
 
@@ -283,6 +353,7 @@ int main (){
             }
             output << "\n";
           }
+          output << endl;
           output.close();
           count++;
 
@@ -299,7 +370,6 @@ int main (){
 
               if(check == 5){
                 cout << "Board stablizes or is empty, program ends" << endl;
-                cout << "Press enter to quit" << endl;
                 break;
               }
             }else{
@@ -308,43 +378,79 @@ int main (){
           }
 
         }else if (a == "n"){
-          while(count < 100){
+          if(pause == "y"){
+            while(count < 1000){
 
-            MirrorMode* m = new MirrorMode(row, column, board);
+              //making an object of class ClassicMode
+              MirrorMode* m = new MirrorMode(row, column, board);
 
-            count++;
-            m->simulation();
-            board = m->printBoard();
+              count++;
 
-            cout << "Board number: " << count << endl;
-            cout << endl;
+              //Entering simulation method
+              m->simulation();
 
-            //slowing down the prgram
-            for(int i = 0; i < 1000; i++){
-              for(int i = 0; i < 70000; i++){
-                slow+=i;
+              //prints board to the terminal
+              board = m->printBoard();
+
+              cout << "Board number: " << count << endl;
+              cout << endl;
+
+
+              for(int i = 0; i < 1000; i++){
+                for(int i = 0; i < 70000; i++){
+                  slow+=i;
+                }
+                slow += i;
               }
-              slow += i;
+
+              if(m->isEqual()){
+                check++;
+
+                if(check == 5){
+                  cout << "Board stablizes or is empty, program ends" << endl;
+                  cout << "The output in in " << fileInput << endl;
+                  break;
+                }
+              }else{
+                continue;
+              }
             }
+          }else if(pause == "n"){
+            while(count < 100){
 
-            //checking to see if the boards stabalize
-            if(m->isEqual()){
-              check++;
+              MirrorMode* m = new MirrorMode(row, column, board);
 
-              if(check == 5){
-                cout << "Board stablizes or is empty, program ends" << endl;
-                cout << "Press enter to quit" << endl;
-                break;
+              count++;
+              m->simulation();
+              board = m->printBoard();
+
+              cout << "Board number: " << count << endl;
+              cout << endl;
+              cout << "Press 'y' to continue: ";
+              cin >> answer;
+
+              if(m->isEqual()){
+                check++;
+
+                if(check == 5){
+                  cout << "Board stablizes or is empty, program ends" << endl;
+                  cout << "Press 'y' to quit: ";
+                  cin >> answer;
+                  if(answer == 'y'){
+                    break;
+                  }
+                }
+              }else{
+                continue;
               }
-            }else{
-              continue;
             }
           }
         }
         mainLoop = false;
-      }else{
-        cout << "Did not enter the right mode, please try again" << endl;
-        mainLoop = true;
+        }else{
+          cout << "Did not enter the right mode, please try again" << endl;
+          mainLoop = true;
+          continue;
+        }
       }
     }
-  }

@@ -72,14 +72,15 @@ char** GameOfLife::randGen(){
       }
     }
 
+    cout << "Board 0" << endl;
     for(int i = 0; i < row; i++){
-      //cout << endl;
+      cout << endl;
       for(int j = 0; j < column; j++){
         if(!(board[i][j] == 'X')){
           board[i][j] = '-';
           board2[i][j] = '-';
         }
-      // cout << board[i][j] << "\t";
+        cout << board[i][j] << "\t";
       }
     }
     cout << endl;

@@ -193,8 +193,8 @@ char** ClassicMode::printBoard(){
     for(int j = 0; j < column; j++){
      cout << board2[i][j] << "\t";
     }
+    cout << endl;
   }
-  cout << endl;
   return board2;
 }
 
@@ -222,6 +222,7 @@ char** ClassicMode::fileBoard(string file, int count){
       }
       answerFile << "\n";
     }
+    answerFile << endl;
     answerFile.close();
     answerFile << endl;
     return board2;
