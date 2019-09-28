@@ -3,6 +3,7 @@
 Arshia Sharma 
 
 ID Number: 2317340
+
 Section 02
 
 For this assignment, there are 9 files: GameOfLife.h, GameOfLife.cpp, ClassicMode.h, ClassicMode.cpp, DonutMode.h, DonutMode.cpp, MirrorMode.h, MirrorMode.cpp, and main.cpp. There are also 4 text files, sample.txt which has the example board from the instructions, and classic.txt, donut.txt, and mirror.txt which holds the outputs of each board using sample.txt
