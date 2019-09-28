@@ -1,11 +1,11 @@
+//includes header files and fstream for writing to a file
 #include "GameOfLife.h"
 #include <iostream>
 #include <fstream>
 
 using namespace std;
 
-//three subclasses - each subclass will call prompt
-
+//default constructor
 GameOfLife::GameOfLife(){
   row = 0;
   column  = 0;
@@ -13,52 +13,46 @@ GameOfLife::GameOfLife(){
   temp = "";
 }
 
+//constructor for random generation
 GameOfLife::GameOfLife(int r, int c, float p){
   row = r;
   column  = c;
   popDensity = p;
 }
 
+//constructor for file input
 GameOfLife::GameOfLife(int r, int c, string t){
   row = r;
   column  = c;
   temp = t;
 }
 
-int GameOfLife::getRow(){
-  return row;
-}
-
-int GameOfLife::getColumn(){
-  return column;
-}
-
-
+//destructor
 GameOfLife::~GameOfLife(){
   delete board;
 }
 
+//random generation of a board
 char** GameOfLife::randGen(){
-  srand(time(0)); //to make the rand actually random
+  srand(time(0)); //to make the rand actually random - README
 
+  //making the 2D array
   board = new char *[row];
 		for(int i = 0; i < row ; i++){
 		    board[i] = new char[column];
 		}
 
+  //making the 2D array
   board2 = new char *[row];
   	for(int i = 0; i < row ; i++){
   		   board2[i] = new char[column];
   	}
 
   int mult = row * column;
-
   int cells = mult * popDensity;
-  //cout << cells << endl;
-
-  //forloop to generate two random numbers from the sizes of row/column to populate board
-
   int i = 0;
+
+  //randomly adding occupied cells to the board
   while(i < cells){
       int a =  rand() % row;
       int b =  rand() % column;
@@ -72,12 +66,13 @@ char** GameOfLife::randGen(){
       }
     }
 
+    //outputting the board to the user
     cout << "Board 0" << endl;
     for(int i = 0; i < row; i++){
       cout << endl;
       for(int j = 0; j < column; j++){
         if(!(board[i][j] == 'X')){
-          board[i][j] = '-';
+          board[i][j] = '-'; //adding the unoccupied cells
           board2[i][j] = '-';
         }
         cout << board[i][j] << "\t";
@@ -87,21 +82,25 @@ char** GameOfLife::randGen(){
     return board;
   }
 
+  //method for the genration of an inputted file
   char** GameOfLife::fileGen(){
 
+    //making the new board
     board = new char *[row];
   		for(int i = 0; i < row ; i++){
   		    board[i] = new char[column];
   		}
 
+    //making board2
     board2 = new char *[row];
     	for(int i = 0; i < row ; i++){
     		   board2[i] = new char[column];
     	}
 
-      //make a loop thing
+      //starts at two since first two lines at the number of rows and columns
       int count = 2;
 
+      //outputs the board to the terminal for user to check 
       cout << "Board 0" << endl;
         for(int i = 0; i < row; i++){
           cout << endl;

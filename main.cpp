@@ -1,3 +1,4 @@
+//header files
 #include "GameOfLife.h"
 #include "ClassicMode.h"
 #include "DonutMode.h"
@@ -9,8 +10,8 @@ using namespace std;
 
 int main (){
 
-  string a;
-  string b;
+  string filePick;
+  string boardPick;
   string pause;
   int config  = 0;
   bool loop = true;
@@ -32,6 +33,7 @@ int main (){
     cout << "Enter 1 for random or 2 for flatfile: ";
     cin >> config;
 
+    //random file configuration
     if(config == 1){
       cout << "Please enter the dimenisions for the world" << endl;
 
@@ -43,12 +45,13 @@ int main (){
       cout << "Enter a decimal for the population density: ";
       cin >> popDensity;
 
-      //makes Board 0
+      //makes Board 0, uses a pointer, makes an instance of GameOfLife
       GameOfLife* g = new GameOfLife(row, column, popDensity);
       board = g->randGen();
 
       loop = false;
 
+    //file generation
     }else if(config == 2){
 
       cout << "Enter the file: ";
@@ -68,13 +71,13 @@ int main (){
       row = int(temp[0]) - 48;
       column = int(temp[1]) - 48;
 
-      //makes Board 0
+      //makes Board 0, uses a pointer, makes an instance of GameOfLife
       GameOfLife* g = new GameOfLife(row, column, temp);
       board = g->fileGen();
 
       loop = false;
 
-
+    //else case, repromtps user
     }else{
       cout << "Please enter 1 or 2: " << endl;
       loop = true;
@@ -82,19 +85,24 @@ int main (){
     }
   }
 
+  //loop of the simulation with the different modes
   while(mainLoop){
+
     //Lets user choose what game mode
     cout << "Pick a board to begin to play: classic (c), donut (d), mirror (m): ";
-    cin >> b;
+    cin >> boardPick;
 
     //If the data should be in a file instead of the terminal
     cout << "Would you like the boards mapped to a file (y/n): ";
-    cin >> a;
+    cin >> filePick;
 
-    if(a == "y"){
+    //Enter the output file
+    if(filePick == "y"){
       cout << "Enter output file name: ";
       cin >> fileInput;
-    }if(a == "n"){
+
+    //Ask user if they want automatic pauses or use keys to see each board
+    }if(filePick == "n"){
       cout << "Would you like automatic pauses between boards or press the key 'y'?" << endl;
       cout << "Press 'y' for automatic pauses and 'n' for using the key: ";
       cin >> pause;
@@ -103,9 +111,10 @@ int main (){
     int count = 0;
 
     //ClassicMode loop
-    if((b == "c") || (b == "classic")){
+    if((boardPick == "c") || (boardPick == "classic")){
 
-        if(a == "y"){
+        //outputing boards to a file
+        if(filePick == "y"){
 
             //Opening a text file
             ofstream output;
@@ -138,13 +147,14 @@ int main (){
               board = c->fileBoard(fileInput, count);
               count++;
 
-              //method to check if the boards are the same
+              //method to check if the boards are the same, checks it for 5 times
               if(c->isEqual()){
                 check++;
 
+                //breaks out of the loop
                 if(check == 5){
                   cout << "Board stablizes or is empty, program ends" << endl;
-                  cout << "The output in in " << fileInput << endl;
+                  cout << "The output in " << fileInput << endl;
                   break;
                 }
               }else{
@@ -152,8 +162,10 @@ int main (){
               }
             }
 
-        //prints data to the terminal
-        }else if (a == "n"){
+      //prints data to the terminal
+      }else if (filePick == "n"){
+
+          //automatic pauses for each board
           if(pause == "y"){
             while(count < 1000){
 
@@ -172,6 +184,7 @@ int main (){
               cout << endl;
 
 
+              //for loop to slow down the program, automatic pauses
               for(int i = 0; i < 1000; i++){
                 for(int i = 0; i < 70000; i++){
                   slow+=i;
@@ -179,6 +192,7 @@ int main (){
                 slow += i;
               }
 
+              //if the boards are equal 5 times in a row, the program ends
               if(c->isEqual()){
                 check++;
 
@@ -190,13 +204,22 @@ int main (){
                 continue;
               }
             }
+
+          //Loop where the user presses the y key to see each board
           }else if(pause == "n"){
+
+            //Ensuring enough loops
             while(count < 100){
 
+              //making an object of class ClassicMode
               ClassicMode* c = new ClassicMode(row, column, board);
 
               count++;
+
+              //Entering simulation method
               c->simulation();
+
+              //prints board to the terminal
               board = c->printBoard();
 
               cout << "Board number: " << count << endl;
@@ -204,6 +227,7 @@ int main (){
               cout << "Press 'y' to continue: ";
               cin >> answer;
 
+              //if the boards are equal 5 times in a row, the program ends
               if(c->isEqual()){
                 check++;
 
@@ -224,41 +248,91 @@ int main (){
 
       mainLoop = false;
 
-      //Donut loop
-      }else if((b == "d") || (b == "donut")){
+    //Donut Mode loop
+    }else if((boardPick == "d") || (boardPick == "donut")){
 
-        if(a == "y"){
+      //outputing boards to a file
+      if(filePick == "y"){
 
-          ofstream output;
+      ofstream output;
 
-          //will override what is in the file currently; will keep all the data that will be written until the program is executed again
-          output.open (fileInput);
-          output << "Board 0" << endl;
+      //will override what is in the file currently; will keep all the data that will be written until the program is executed again
+      output.open (fileInput);
+      output << "Board 0" << endl;
 
-          for(int i = 0; i < row; i++){
-            for(int j = 0; j < column; j++){
-                output << board[i][j] << "\t";
-            }
-            output << "\n";
+      //iterating through the 2D array
+      for(int i = 0; i < row; i++){
+        for(int j = 0; j < column; j++){
+            output << board[i][j] << "\t";
           }
-          output << endl;
-          output.close();
+          output << "\n";
+        }
+        output << endl;
+        output.close();
+        count++;
+
+        //high number to ensure enough loops
+        while(count < 100){
+
+          //making an object of class ClassicMode
+          DonutMode* d = new DonutMode(row, column, board);
+
+          //Entering simulation method
+          d->simulation();
+
+          //method to print data to file
+          board = d->fileBoard(fileInput, count);
           count++;
 
-          while(count < 100){
+          //if the boards are equal 5 times in a row, the program ends
+          if(d->isEqual()){
+            check++;
 
+            if(check == 5){
+              cout << "Board stablizes or is empty, program ends" << endl;
+              cout << "The output in " << fileInput << endl;
+              break;
+            }
+          }else{
+            continue;
+          }
+        }
+
+      //Loop that prints the terminal with automatic pauses
+      }else if (filePick == "n"){
+        if(pause == "y"){
+
+          //Ensures enough loops
+          while(count < 1000){
+
+            //making an object of class DonutcMode
             DonutMode* d = new DonutMode(row, column, board);
 
-            d->simulation();
-            board = d->fileBoard(fileInput, count);
             count++;
 
+            //Entering simulation method
+            d->simulation();
+
+            //prints board to the terminal
+            board = d->printBoard();
+
+            cout << "Board number: " << count << endl;
+            cout << endl;
+
+            //for loop to slow down the program, automatic pauses
+            for(int i = 0; i < 1000; i++){
+              for(int i = 0; i < 70000; i++){
+                slow+=i;
+              }
+              slow += i;
+            }
+
+            //if the boards are equal 5 times in a row, the program ends
             if(d->isEqual()){
               check++;
 
               if(check == 5){
                 cout << "Board stablizes or is empty, program ends" << endl;
-                cout << "The output in in " << fileInput << endl;
                 break;
               }
             }else{
@@ -266,105 +340,126 @@ int main (){
             }
           }
 
-        }else if (a == "n"){
-          if(pause == "y"){
-            while(count < 1000){
+      //Loop where the user presses the y key to see each board
+      }else if(pause == "n"){
 
-              //making an object of class ClassicMode
-              DonutMode* d = new DonutMode(row, column, board);
+        //Ensures enough loops
+        while(count < 100){
 
-              count++;
+          //making an object of class DonutMode
+          DonutMode* d = new DonutMode(row, column, board);
 
-              //Entering simulation method
-              d->simulation();
+          count++;
 
-              //prints board to the terminal
-              board = d->printBoard();
+          //Entering simulation method
+          d->simulation();
 
-              cout << "Board number: " << count << endl;
-              cout << endl;
+          //prints board to the terminal
+          board = d->printBoard();
 
+          cout << "Board number: " << count << endl;
+          cout << endl;
+          cout << "Press 'y' to continue: ";
+          cin >> answer;
 
-              for(int i = 0; i < 1000; i++){
-                for(int i = 0; i < 70000; i++){
-                  slow+=i;
-                }
-                slow += i;
+          //if the boards are equal 5 times in a row, the program ends
+          if(d->isEqual()){
+            check++;
+
+            if(check == 5){
+              cout << "Board stablizes or is empty, program ends" << endl;
+              cout << "Press 'y' to quit: ";
+              cin >> answer;
+              if(answer == 'y'){
+                break;
               }
-
-              if(d->isEqual()){
-                check++;
-
-                if(check == 5){
-                  cout << "Board stablizes or is empty, program ends" << endl;
-                  break;
-                }
-              }else{
-                continue;
-              }
-            }
-        }else if(pause == "n"){
-          while(count < 100){
-
-            DonutMode* d = new DonutMode(row, column, board);
-
-            count++;
-            d->simulation();
-            board = d->printBoard();
-
-            cout << "Board number: " << count << endl;
-            cout << endl;
-            cout << "Press 'y' to continue: ";
-            cin >> answer;
-
-            if(d->isEqual()){
-              check++;
-
-              if(check == 5){
-                cout << "Board stablizes or is empty, program ends" << endl;
-                cout << "Press 'y' to quit: ";
-                cin >> answer;
-                if(answer == 'y'){
-                  break;
-                }
-              }else{
-                continue;
-            }
+            }else{
+              continue;
           }
         }
       }
     }
+  }
 
-    mainLoop = false;
+  mainLoop = false;
 
+  //Mirror Mode loop
+  }else if((boardPick == "m") || (boardPick == "mirror")){
 
-      }else if((b == "m") || (b == "mirror")){
+    //outputing boards to a file
+    if(filePick == "y"){
+        ofstream output;
 
-        if(a == "y"){
-          ofstream output;
+        //will override what is in the file currently; will keep all the data that will be written until the program is executed again
+        output.open (fileInput);
+        output << "Board 0" << endl;
 
-          //will override what is in the file currently; will keep all the data that will be written until the program is executed again
-          output.open (fileInput);
-          output << "Board 0" << endl;
-
-          for(int i = 0; i < row; i++){
-            for(int j = 0; j < column; j++){
-                output << board[i][j] << "\t";
-            }
-            output << "\n";
+        //Makes Board 0
+        for(int i = 0; i < row; i++){
+          for(int j = 0; j < column; j++){
+              output << board[i][j] << "\t";
           }
-          output << endl;
-          output.close();
+          output << "\n";
+        }
+        output << endl;
+        output.close();
+        count++;
+
+        //high number to ensure enough loops
+        while(count < 100){
+
+          //making an object of class DonutMode
+          MirrorMode* m = new MirrorMode(row, column, board);
+
+          //Entering simulation method
+          m->simulation();
+
+          //method to print data to file
+          board = m->fileBoard(fileInput, count);
           count++;
 
-          while(count < 100){
+          //if the boards are equal 5 times in a row, the program ends
+          if(m->isEqual()){
+            check++;
 
+            if(check == 5){
+              cout << "Board stablizes or is empty, program ends" << endl;
+              cout << "The output in " << fileInput << endl;
+              break;
+            }
+          }else{
+            continue;
+          }
+        }
+
+      //Loop that prints the terminal with automatic pauses
+      }else if (filePick == "n"){
+        if(pause == "y"){
+          while(count < 1000){
+
+            //making an object of class MirrorMode
             MirrorMode* m = new MirrorMode(row, column, board);
 
-            m->simulation();
-            board = m->fileBoard(fileInput, count);
             count++;
 
+              //Entering simulation method
+              m->simulation();
+
+            //prints board to the terminal
+            board = m->printBoard();
+
+            cout << "Board number: " << count << endl;
+            cout << endl;
+
+            //for loop to slow down the program, automatic pauses
+            for(int i = 0; i < 1000; i++){
+              for(int i = 0; i < 70000; i++){
+                slow+=i;
+              }
+              slow += i;
+            }
+
+            //if the boards are equal 5 times in a row, the program ends
             if(m->isEqual()){
               check++;
 
@@ -376,81 +471,52 @@ int main (){
               continue;
             }
           }
+        }else if(pause == "n"){
 
-        }else if (a == "n"){
-          if(pause == "y"){
-            while(count < 1000){
+          //Ensures enough loops
+          while(count < 100){
 
-              //making an object of class ClassicMode
-              MirrorMode* m = new MirrorMode(row, column, board);
+            //making an object of class MirrorMode
+            MirrorMode* m = new MirrorMode(row, column, board);
 
-              count++;
+            count++;
 
-              //Entering simulation method
-              m->simulation();
+            //Entering simulation method
+            m->simulation();
 
-              //prints board to the terminal
-              board = m->printBoard();
+            //prints board to the terminal
+            board = m->printBoard();
 
-              cout << "Board number: " << count << endl;
-              cout << endl;
+            cout << "Board number: " << count << endl;
+            cout << endl;
+            cout << "Press 'y' to continue: ";
+            cin >> answer;
 
+            //if the boards are equal 5 times in a row, the program ends
+            if(m->isEqual()){
+              check++;
 
-              for(int i = 0; i < 1000; i++){
-                for(int i = 0; i < 70000; i++){
-                  slow+=i;
-                }
-                slow += i;
-              }
-
-              if(m->isEqual()){
-                check++;
-
-                if(check == 5){
-                  cout << "Board stablizes or is empty, program ends" << endl;
-                  cout << "The output in in " << fileInput << endl;
+              if(check == 5){
+                cout << "Board stablizes or is empty, program ends" << endl;
+                cout << "Press 'y' to quit: ";
+                cin >> answer;
+                if(answer == 'y'){
                   break;
                 }
-              }else{
-                continue;
               }
-            }
-          }else if(pause == "n"){
-            while(count < 100){
-
-              MirrorMode* m = new MirrorMode(row, column, board);
-
-              count++;
-              m->simulation();
-              board = m->printBoard();
-
-              cout << "Board number: " << count << endl;
-              cout << endl;
-              cout << "Press 'y' to continue: ";
-              cin >> answer;
-
-              if(m->isEqual()){
-                check++;
-
-                if(check == 5){
-                  cout << "Board stablizes or is empty, program ends" << endl;
-                  cout << "Press 'y' to quit: ";
-                  cin >> answer;
-                  if(answer == 'y'){
-                    break;
-                  }
-                }
-              }else{
-                continue;
-              }
+            }else{
+              continue;
             }
           }
         }
-        mainLoop = false;
-        }else{
-          cout << "Did not enter the right mode, please try again" << endl;
-          mainLoop = true;
-          continue;
-        }
+      }
+      mainLoop = false;
+
+      //else loop to catch is the user inputs the wrong mode
+      }else{
+        cout << "Did not enter the right mode, please try again" << endl;
+        mainLoop = true;
+        continue;
       }
     }
+  }

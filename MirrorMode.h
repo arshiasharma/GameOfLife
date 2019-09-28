@@ -1,8 +1,11 @@
+//header file for MirrorMode
 #include <iostream>
 
 using namespace std;
 
 class MirrorMode{
+
+  //member variables
   private:
     int neighborCount;
     int row;
@@ -10,6 +13,7 @@ class MirrorMode{
     char **board;
     char **board2;
 
+  //methods
   public:
     MirrorMode();
     MirrorMode(int row, int column, char** board);
@@ -17,6 +21,6 @@ class MirrorMode{
     void simulation();
     void getBoard(int i, int j, int neighborCount);
     char** printBoard();
-    bool isEqual();
     char** fileBoard(string fileInput, int count);
+    bool isEqual();
 };

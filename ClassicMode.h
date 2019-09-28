@@ -1,8 +1,11 @@
+//header file for ClassicMode
 #include <iostream>
 
 using namespace std;
 
 class ClassicMode{
+
+  //member variables
   private:
     int neighborCount;
     int row;
@@ -11,6 +14,7 @@ class ClassicMode{
     char **board2;
 
 
+  //methods
   public:
     ClassicMode();
     ClassicMode(int row, int column, char** board);
@@ -18,7 +22,7 @@ class ClassicMode{
     void simulation();
     void getBoard(int i, int j, int neighborCount);
     char** printBoard();
-    bool isEqual();
     char** fileBoard(string fileInput, int count);
+    bool isEqual();
 
 };
