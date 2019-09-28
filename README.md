@@ -10,7 +10,7 @@ For this assignment, there are 9 files: GameOfLife.h, GameOfLife.cpp, ClassicMod
 
 This program uses a Makefile to compile, type make all in your terminal and ./assignment2 to run.
 
-I worked alone on this assignment and the sources I used are listed below:
+I worked alone on this assignment, went to office hours and the sources I used are listed below:
 
 * [Converting char to int](https://stackoverflow.com/questions/5029840/convert-char-to-int-in-c-and-c)
 * [Random number generator](https://stackoverflow.com/questions/28656004/c-random-doesnt-workreturns-same-value-always)
