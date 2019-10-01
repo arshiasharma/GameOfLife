@@ -59,14 +59,20 @@ int main (){
     //file generation
     }else if(config == 2){
 
-      cout << "Enter the file: ";
-      cin >> file;
-
       string temp = "";
       string line = "";
 
+      cout << "Enter the file: ";
+      cin >> file;
+
       //opens a file - learned from Assignment 1
       ifstream infile(file);
+
+      if(infile.fail()){
+        cout << "Fail doesnt exist, please try again with text files in the code" << endl;
+        cout << endl;
+        continue;
+      }
 
       while(getline(infile, line)){
         temp += line;
@@ -94,6 +100,7 @@ int main (){
   while(mainLoop){
 
     //Lets user choose what game mode
+    //If not a valid option, it'll reprompt the user at line 540
     cout << "Pick a board to begin to play: classic (c), donut (d), mirror (m): ";
     cin >> boardPick;
 
@@ -533,7 +540,6 @@ int main (){
       }else{
         cout << "Did not enter the right mode, please try again" << endl;
         mainLoop = true;
-        continue;
       }
     }
   }
