@@ -42,8 +42,13 @@ int main (){
       cout << "Enter columns: ";
       cin >> column;
 
-      cout << "Enter a decimal for the population density: ";
+      cout << "Enter a decimal for the population density (0 - 1): ";
       cin >> popDensity;
+
+      if(0 < popDensity <= 1 ){
+        cout << "Not a valid number, please try again: ";
+        cin >> popDensity;
+      }
 
       //makes Board 0, uses a pointer, makes an instance of GameOfLife
       GameOfLife* g = new GameOfLife(row, column, popDensity);
