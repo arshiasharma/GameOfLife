@@ -10,6 +10,8 @@ For this assignment, there are 9 files: GameOfLife.h, GameOfLife.cpp, ClassicMod
 
 This program uses a Makefile to compile, type make all in your terminal and ./assignment2 to run.
 
+This program runs completely, with all the modes and user inputs and correct output depending on what the user chooses. 
+
 I worked alone on this assignment, all code used was purely my own with help from office hours and the sources I used which are listed below:
 
 * [Converting char to int](https://stackoverflow.com/questions/5029840/convert-char-to-int-in-c-and-c)
