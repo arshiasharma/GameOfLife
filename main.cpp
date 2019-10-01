@@ -177,11 +177,13 @@ int main (){
               //Entering simulation method
               c->simulation();
 
+              cout << endl;
+              cout << "Board number: " << count << endl;
+              cout << endl;
+
               //prints board to the terminal
               board = c->printBoard();
 
-              cout << "Board number: " << count << endl;
-              cout << endl;
 
 
               //for loop to slow down the program, automatic pauses
@@ -217,13 +219,16 @@ int main (){
               count++;
 
               //Entering simulation method
+
               c->simulation();
+
+              cout << endl;
+              cout << "Board number: " << count << endl;
+              cout << endl;
 
               //prints board to the terminal
               board = c->printBoard();
 
-              cout << "Board number: " << count << endl;
-              cout << endl;
               cout << "Press 'y' to continue: ";
               cin >> answer;
 
@@ -313,11 +318,12 @@ int main (){
             //Entering simulation method
             d->simulation();
 
-            //prints board to the terminal
-            board = d->printBoard();
-
+            cout << endl;
             cout << "Board number: " << count << endl;
             cout << endl;
+
+            //prints board to the terminal
+            board = d->printBoard();
 
             //for loop to slow down the program, automatic pauses
             for(int i = 0; i < 1000; i++){
@@ -354,11 +360,13 @@ int main (){
           //Entering simulation method
           d->simulation();
 
+          cout << endl;
+          cout << "Board number: " << count << endl;
+          cout << endl;
+
           //prints board to the terminal
           board = d->printBoard();
 
-          cout << "Board number: " << count << endl;
-          cout << endl;
           cout << "Press 'y' to continue: ";
           cin >> answer;
 
@@ -442,14 +450,15 @@ int main (){
 
             count++;
 
-              //Entering simulation method
-              m->simulation();
+            //Entering simulation method
+            m->simulation();
+
+            cout << endl;
+            cout << "Board number: " << count << endl;
+            cout << endl;
 
             //prints board to the terminal
             board = m->printBoard();
-
-            cout << "Board number: " << count << endl;
-            cout << endl;
 
             //for loop to slow down the program, automatic pauses
             for(int i = 0; i < 1000; i++){
@@ -485,10 +494,13 @@ int main (){
             m->simulation();
 
             //prints board to the terminal
-            board = m->printBoard();
 
+            cout << endl;
             cout << "Board number: " << count << endl;
             cout << endl;
+
+            board = m->printBoard();
+
             cout << "Press 'y' to continue: ";
             cin >> answer;
 
